@@ -1,36 +1,72 @@
 package paths
 
+// https://leetcode.com/problems/all-paths-from-source-to-target/
+
 func AllPathsSourceTarget(graph [][]int) [][]int {
 	if len(graph) == 0 {
 		return make([][]int, 0)
 	}
 
-	paths := allPaths(graph, []int{0})
+	// paths := allPaths(graph, []int{0})
+
+	paths := allPaths(graph)
 	return paths
 }
 
-func allPaths(graph [][]int, path []int) [][]int {
-	// pop from path after done, on return
-	defer func() {
-		path = path[:len(path)-1]
-	}()
+func allPaths(graph [][]int) [][]int {
+	paths := make([][]int, 0)
 
-	// current node
-	i := path[len(path)-1]
+	// start queue with path that has just first node
+	q := make([][]int, 1)
+	q[0] = []int{0}
 
-	// reached end
-	if i == len(graph)-1 {
-		p := make([]int, len(path))
-		copy(p, path)
-		return [][]int{p}
+	for len(q) > 0 {
+		// dequeue a path
+		p := q[0]
+		q = q[1:]
+
+		// get tip of path
+		tip := p[len(p)-1]
+
+		// check if found destination
+		if tip == len(graph)-1 {
+			paths = append(paths, p)
+			continue
+		}
+
+		// enqueue paths with new neighbors
+		for _, n := range graph[tip] {
+			np := make([]int, len(p))
+			copy(np, p)
+			q = append(q, append(np, n))
+		}
 	}
 
-	// travel to neighbors
-	paths := make([][]int, 0, len(graph[i]))
-	for _, n := range graph[i] {
-		nPath := append(path, n)
-		nPaths := allPaths(graph, nPath)
-		paths = append(paths, nPaths...)
-	}
 	return paths
 }
+
+// func allPaths(graph [][]int, path []int) [][]int {
+// 	// pop from path after done, on return
+// 	defer func() {
+// 		path = path[:len(path)-1]
+// 	}()
+
+// 	// current node
+// 	i := path[len(path)-1]
+
+// 	// reached end
+// 	if i == len(graph)-1 {
+// 		p := make([]int, len(path))
+// 		copy(p, path)
+// 		return [][]int{p}
+// 	}
+
+// 	// travel to neighbors
+// 	paths := make([][]int, 0, len(graph[i]))
+// 	for _, n := range graph[i] {
+// 		nPath := append(path, n)
+// 		nPaths := allPaths(graph, nPath)
+// 		paths = append(paths, nPaths...)
+// 	}
+// 	return paths
+// }
