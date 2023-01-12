@@ -3,11 +3,13 @@ package paths
 import (
 	"reflect"
 	"testing"
+
+	"github.com/gabrielseibel1/goStudies2023/graph"
 )
 
 func TestAllPathsSourceTarget(t *testing.T) {
 	type args struct {
-		graph [][]int
+		graph graph.Graph
 	}
 	tests := []struct {
 		name string
@@ -17,18 +19,13 @@ func TestAllPathsSourceTarget(t *testing.T) {
 		// TODO: Add test cases.
 		{
 			name: "square",
-			args: args{[][]int{{1, 2}, {3}, {3}, {}}},
+			args: args{graph.Square},
 			want: [][]int{{0, 1, 3}, {0, 2, 3}},
 		},
 		{
 			name: "trapezoid",
-			args: args{[][]int{{4, 3, 1}, {3, 2, 4}, {3}, {4}, {}}},
-			want: [][]int{{0, 4}, {0, 3, 4}, {0, 1, 4}, {0, 1, 3, 4}, {0, 1, 2, 3, 4}},
-		},
-		{
-			name: "complex",
-			args: args{[][]int{{3, 1}, {4, 6, 7, 2, 5}, {4, 6, 3}, {6, 4}, {7, 6, 5}, {6}, {7}, {}}},
-			want: [][]int{{0, 1, 7}, {0, 3, 6, 7}, {0, 3, 4, 7}, {0, 1, 4, 7}, {0, 1, 6, 7}, {0, 3, 4, 6, 7}, {0, 1, 4, 6, 7}, {0, 1, 2, 4, 7}, {0, 1, 2, 6, 7}, {0, 1, 5, 6, 7}, {0, 3, 4, 5, 6, 7}, {0, 1, 4, 5, 6, 7}, {0, 1, 2, 4, 6, 7}, {0, 1, 2, 3, 6, 7}, {0, 1, 2, 3, 4, 7}, {0, 1, 2, 4, 5, 6, 7}, {0, 1, 2, 3, 4, 6, 7}, {0, 1, 2, 3, 4, 5, 6, 7}},
+			args: args{graph.Trapezoid},
+			want: [][]int{{0, 4}, {0, 3, 4}, {0, 1, 3, 4}, {0, 1, 2, 3, 4}},
 		},
 	}
 	for _, tt := range tests {
