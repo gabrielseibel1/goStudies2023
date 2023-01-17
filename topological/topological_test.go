@@ -15,19 +15,19 @@ func testIsTopologicallySorted(t *testing.T, name string, graph graph.Graph, sor
 }
 
 func TestIsTopologicallySortedSquareTrue(t *testing.T) {
-	testIsTopologicallySorted(t, "TestIsTopologicallySortedSquareTrue", graph.Square, []int{0, 2, 1, 3}, true)
+	testIsTopologicallySorted(t, "TestIsTopologicallySortedSquareTrue", graph.SquareDAG, []int{0, 2, 1, 3}, true)
 }
 
 func TestIsTopologicallySortedSquareFalse(t *testing.T) {
-	testIsTopologicallySorted(t, "TestIsTopologicallySortedSquareFalse", graph.Square, []int{0, 1, 3, 2}, false)
+	testIsTopologicallySorted(t, "TestIsTopologicallySortedSquareFalse", graph.SquareDAG, []int{0, 1, 3, 2}, false)
 }
 
 func TestIsTopologicallySortedTrapezoidTrue(t *testing.T) {
-	testIsTopologicallySorted(t, "TestIsTopologicallySortedTrapezoidTrue", graph.Trapezoid, []int{0, 1, 2, 3, 4}, true)
+	testIsTopologicallySorted(t, "TestIsTopologicallySortedTrapezoidTrue", graph.TrapezoidDAG, []int{0, 1, 2, 3, 4}, true)
 }
 
 func TestIsTopologicallySortedTrapezoidFalse(t *testing.T) {
-	testIsTopologicallySorted(t, "TestIsTopologicallySortedTrapezoidFalse", graph.Trapezoid, []int{4, 2, 3, 1, 0}, false)
+	testIsTopologicallySorted(t, "TestIsTopologicallySortedTrapezoidFalse", graph.TrapezoidDAG, []int{4, 2, 3, 1, 0}, false)
 }
 
 func testTopSort(t *testing.T, name string, graph graph.Graph) {
@@ -39,13 +39,13 @@ func testTopSort(t *testing.T, name string, graph graph.Graph) {
 }
 
 func TestTopSortSquare(t *testing.T) {
-	testTopSort(t, "TestTopSortSquare", graph.Square)
+	testTopSort(t, "TestTopSortSquare", graph.SquareDAG)
 }
 
 func TestTopSortTrapezoid(t *testing.T) {
-	testTopSort(t, "TestTopSortTrapezoid", graph.Trapezoid)
+	testTopSort(t, "TestTopSortTrapezoid", graph.TrapezoidDAG)
 }
 
 func TestTopSortLong(t *testing.T) {
-	testTopSort(t, "TestTopSortLong", graph.Long)
+	testTopSort(t, "TestTopSortLong", graph.LongDAG)
 }

@@ -19,13 +19,13 @@ func testShortestPath(t *testing.T, name string, graph graph.Graph, want []int) 
 }
 
 func TestShortestPathSquare(t *testing.T) {
-	testShortestPath(t, "TestShortestPathSquare", graph.Square, []int{0, 1, 2, 1})
+	testShortestPath(t, "TestShortestPathSquare", graph.SquareDAG, []int{0, 1, 2, 1})
 }
 
 func TestShortestPathTrapezoid(t *testing.T) {
-	testShortestPath(t, "TestShortestPathTrapezoid", graph.Trapezoid, []int{0, 1, 3, 0, 2})
+	testShortestPath(t, "TestShortestPathTrapezoid", graph.TrapezoidDAG, []int{0, 1, 3, 0, 2})
 }
 
 func TestShortestPathLong(t *testing.T) {
-	testShortestPath(t, "TestShortestPathLong", graph.Long, []int{0, 2, 4, 1, math.MaxInt, math.MaxInt, 4, 0, math.MaxInt, 9, 1, 9, 5})
+	testShortestPath(t, "TestShortestPathLong", graph.LongDAG, []int{0, 2, 4, 1, math.MaxInt, math.MaxInt, 4, 0, math.MaxInt, 9, 1, 9, 5})
 }
