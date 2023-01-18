@@ -3,16 +3,20 @@ package main
 import (
 	"fmt"
 
+	"github.com/gabrielseibel1/goStudies2023/bridges"
 	"github.com/gabrielseibel1/goStudies2023/graph"
-	"github.com/gabrielseibel1/goStudies2023/prim"
 )
 
 func main() {
-	dist, edges := prim.MinimumSpanningTree(graph.Square)
-	fmt.Printf("Dist = %d\n", dist)
-	fmt.Println(edges)
+	// b1 := bridges.FindBridges(graph.Square)
+	// fmt.Println(b1)
 
-	dist, edges = prim.MinimumSpanningTree(graph.Trapezoid)
-	fmt.Printf("Dist = %d\n", dist)
-	fmt.Println(edges)
+	// b2 := bridges.FindBridges(graph.Trapezoid)
+	// fmt.Println(b2)
+
+	b3 := bridges.FindBridges(graph.NoBridge)
+	fmt.Println(b3)
+
+	// b4 := bridges.FindBridges(graph.Bridge)
+	// fmt.Println(b4)
 }

@@ -2,6 +2,16 @@ package graph
 
 import "fmt"
 
+type Edge struct {
+	From int
+	To   int
+	Dist int
+}
+
+func (e *Edge) String() string {
+	return fmt.Sprintf("{ %d -(%d)-> %d } ", e.From, e.Dist, e.To)
+}
+
 type GNode struct {
 	Distances []int
 	Neighbors []int
@@ -9,7 +19,7 @@ type GNode struct {
 
 type Graph []GNode
 
-var SquareDAG = []GNode{
+var SquareDG = []GNode{
 	{
 		Distances: []int{1, 2},
 		Neighbors: []int{1, 2},
@@ -47,7 +57,7 @@ var Square = []GNode{
 	},
 }
 
-var TrapezoidDAG = []GNode{
+var TrapezoidDG = []GNode{
 	{
 		Distances: []int{4, 1, 1},
 		Neighbors: []int{4, 3, 1},
@@ -93,7 +103,69 @@ var Trapezoid = []GNode{
 	},
 }
 
-var LongDAG = []GNode{
+var NoBridge = []GNode{
+	{
+		Distances: []int{1, 1},
+		Neighbors: []int{1, 2},
+	},
+	{
+		Distances: []int{1, 1, 1},
+		Neighbors: []int{2, 3, 0},
+	},
+	{
+		Distances: []int{1, 1, 1},
+		Neighbors: []int{3, 1, 0},
+	},
+	{
+		Distances: []int{1, 1, 1, 1},
+		Neighbors: []int{4, 5, 1, 2},
+	},
+	{
+		Distances: []int{1, 1},
+		Neighbors: []int{5, 3},
+	},
+	{
+		Distances: []int{1, 1},
+		Neighbors: []int{3, 4},
+	},
+}
+
+var Bridge = []GNode{
+	{
+		Distances: []int{1, 1},
+		Neighbors: []int{1, 2},
+	},
+	{
+		Distances: []int{1, 1},
+		Neighbors: []int{2, 0},
+	},
+	{
+		Distances: []int{1, 1, 1},
+		Neighbors: []int{3, 1, 0},
+	},
+	{
+		Distances: []int{1, 1, 1, 1},
+		Neighbors: []int{4, 6, 7, 2},
+	},
+	{
+		Distances: []int{1, 1},
+		Neighbors: []int{5, 3},
+	},
+	{
+		Distances: []int{1},
+		Neighbors: []int{4},
+	},
+	{
+		Distances: []int{1, 1},
+		Neighbors: []int{3, 7},
+	},
+	{
+		Distances: []int{1, 1},
+		Neighbors: []int{3, 6},
+	},
+}
+
+var LongDG = []GNode{
 	{
 		Distances: []int{2, 4},
 		Neighbors: []int{1, 2},

@@ -2,40 +2,39 @@ package prim
 
 import (
 	"container/heap"
-	"fmt"
 	"math"
 
 	"github.com/gabrielseibel1/goStudies2023/graph"
 )
 
-func MinimumSpanningTree(g graph.Graph) (dist int, edges []*Edge) {
+func MinimumSpanningTree(g graph.Graph) (dist int, edges []*graph.Edge) {
 	seen := make(map[int]struct{})
-	edges = make([]*Edge, 0, len(g)-1)
+	edges = make([]*graph.Edge, 0, len(g)-1)
 	pq := make(priorityQueue, 0)
 
 	// init node 0
-	edges = append(edges, &Edge{
-		from: -1,
-		to:   0,
-		dist: 0,
+	edges = append(edges, &graph.Edge{
+		From: -1,
+		To:   0,
+		Dist: 0,
 	})
 	seen[0] = struct{}{}
 	pushEdges(&pq, seen, g, 0)
 
 	// do prims algorithm
 	for pq.Len() > 0 && len(edges) < len(g) {
-		var e *Edge = heap.Pop(&pq).(*Edge)
-		dist += e.dist
+		var e *graph.Edge = heap.Pop(&pq).(*graph.Edge)
+		dist += e.Dist
 
-		if _, ok := seen[e.to]; ok {
+		if _, ok := seen[e.To]; ok {
 			continue
 		}
 
 		edges = append(edges, e)
 
-		seen[e.to] = struct{}{}
+		seen[e.To] = struct{}{}
 
-		pushEdges(&pq, seen, g, e.to)
+		pushEdges(&pq, seen, g, e.To)
 	}
 
 	if len(edges) < len(g) {
@@ -51,28 +50,18 @@ func pushEdges(pq *priorityQueue, seen map[int]struct{}, g graph.Graph, i int) {
 		if _, ok := seen[node.Neighbors[j]]; ok {
 			continue
 		}
-		heap.Push(pq, &Edge{
-			from: i,
-			to:   node.Neighbors[j],
-			dist: node.Distances[j],
+		heap.Push(pq, &graph.Edge{
+			From: i,
+			To:   node.Neighbors[j],
+			Dist: node.Distances[j],
 		})
 	}
 }
 
-type Edge struct {
-	from int
-	to   int
-	dist int
-}
-
-func (e *Edge) String() string {
-	return fmt.Sprintf("{ %d -(%d)-> %d } ", e.from, e.dist, e.to)
-}
-
-type priorityQueue []*Edge
+type priorityQueue []*graph.Edge
 
 func (pq *priorityQueue) Push(e any) {
-	*pq = append(*pq, e.(*Edge))
+	*pq = append(*pq, e.(*graph.Edge))
 }
 
 func (pq *priorityQueue) Pop() any {
@@ -88,7 +77,7 @@ func (pq *priorityQueue) Len() int {
 }
 
 func (pq *priorityQueue) Less(i, j int) bool {
-	return (*pq)[i].dist < (*pq)[j].dist
+	return (*pq)[i].Dist < (*pq)[j].Dist
 }
 
 func (pq *priorityQueue) Swap(i, j int) {

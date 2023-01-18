@@ -19,12 +19,12 @@ func TestAllPathsSourceTarget(t *testing.T) {
 		// TODO: Add test cases.
 		{
 			name: "square",
-			args: args{graph.SquareDAG},
+			args: args{graph.SquareDG},
 			want: [][]int{{0, 1, 3}, {0, 2, 3}},
 		},
 		{
 			name: "trapezoid",
-			args: args{graph.TrapezoidDAG},
+			args: args{graph.TrapezoidDG},
 			want: [][]int{{0, 4}, {0, 3, 4}, {0, 1, 3, 4}, {0, 1, 2, 3, 4}},
 		},
 	}
