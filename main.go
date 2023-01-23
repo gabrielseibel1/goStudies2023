@@ -2,7 +2,8 @@ package main
 
 import (
 	"fmt"
-	// "github.com/gabrielseibel1/goStudies2023/cp3pg12"
+
+	"github.com/gabrielseibel1/goStudies2023/cp3pg12"
 )
 
 func main() {
@@ -17,4 +18,10 @@ func main() {
 	// cp3pg12.SortNRandomInts()
 
 	// cp3pg12.SortBirthdatesMonthDateAge()
+
+	//cp3pg12.BinarySearch()
+
+	// cp3pg12.PermutationsOfAToJ()
+
+	cp3pg12.PowerSet0to20()
 }

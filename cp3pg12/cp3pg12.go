@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"math"
 	"sort"
+	"sync"
 	"time"
 
 	"golang.org/x/text/language"
@@ -183,10 +184,155 @@ func (ts *TimesSorter) Less(i, j int) bool {
 // 6. Given a list of sorted integers L of size up to 1M items, determine whether a value v
 // exists in L with no more than 20 comparisons (more details in Section 2.2).
 
+func BinarySearch() {
+	fmt.Print("How many sorted integers to search on? ")
+	var n int
+	_, err := fmt.Scanf("%d", &n)
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println("Give me the sorted integers to search on (sep by line break):")
+	s := make([]int, n)
+	for i := 0; i < n; i++ {
+		_, err := fmt.Scanf("%d", &s[i])
+		if err != nil {
+			panic(err)
+		}
+	}
+
+	fmt.Print("What integer do you want me to search? ")
+	var x int
+	_, err = fmt.Scanf("%d", &x)
+	if err != nil {
+		panic(err)
+	}
+
+	i, j := 0, n-1
+
+	for i <= j {
+		mean := (i + j) / 2
+
+		if s[mean] == x {
+			fmt.Printf("Found %d at position %d\n", x, mean)
+			return
+		}
+		if x < s[mean] {
+			j = mean - 1
+		} else {
+			i = mean + 1
+		}
+	}
+
+	fmt.Printf("Didn't find %d\n", x)
+}
+
 // 7. Generate all possible permutations of {‘A’, ‘B’, ‘C’, . . . , ‘J’}, the first N = 10 letters
 // in the alphabet (see Section 3.2.1).
 
+func PermutationsOfAToJ() {
+	letters := []byte{'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'}
+
+	permutations := make([][]byte, 0, factorial(len(letters)))
+
+	wg := new(sync.WaitGroup)
+	wg.Add(1)
+	addPermutations(letters, &permutations, []byte{}, wg)
+	wg.Wait()
+
+	fmt.Println(permutations)
+}
+
+func factorial(n int) int {
+	if n == 1 {
+		return 1
+	}
+	return n * factorial(n-1)
+}
+
+func addPermutations(letters []byte, permutations *[][]byte, permutation []byte, fwg *sync.WaitGroup) {
+	defer fwg.Done()
+
+	if len(letters) == 0 {
+		pc := make([]byte, len(permutation))
+		copy(pc, permutation)
+		*permutations = append(*permutations, pc)
+		return
+	}
+
+	wg := new(sync.WaitGroup)
+	wg.Add(len(letters))
+	for _, l := range letters {
+		// copy letters without current letter
+		lessLetters := make([]byte, 0, len(letters)-1)
+		for _, v := range letters {
+			if v != l {
+				lessLetters = append(lessLetters, v)
+			}
+		}
+
+		pc := make([]byte, len(permutation), len(permutation)+1)
+		copy(pc, permutation)
+		pc = append(pc, l)
+		go addPermutations(lessLetters, permutations, pc, wg)
+	}
+	wg.Wait()
+}
+
 // 8. Generate all possible subsets of {0, 1, 2, . . . , N-1}, for N = 20 (see Section 3.2.1).
+
+func PowerSet0to20() {
+	set := []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20}
+
+	pSetInts := powerSetInts(len(set))
+
+	powerSet := intsToCombinations(set, pSetInts)
+
+	fmt.Println(powerSet)
+}
+
+func powerSetInts(n int) []int {
+	states := make([]int, 0, int(math.Pow(2, float64(n))))
+	for i := 0; i <= n; i++ {
+		intsWithBitsOn(n, &states, 0, i, 0)
+	}
+	return states
+}
+
+func intsWithBitsOn(n int, states *[]int, state, mustOn, at int) {
+	if mustOn == 0 {
+		*states = append(*states, state)
+		return
+	}
+
+	for i := at; i < n; i++ {
+		intsWithBitsOn(n, states, withOn(state, i), mustOn-1, i+1)
+	}
+}
+
+func isOn(state, i int) bool {
+	return (state & (1 << i)) == (1 << i)
+}
+
+func withOn(state, i int) int {
+	return (state | (1 << i))
+}
+
+func intsToCombinations(set, ints []int) [][]int {
+	powerSet := make([][]int, 0, len(ints))
+	for _, state := range ints {
+		comb := make([]int, 0)
+		for i := 0; i <= len(set); i++ {
+			if isOn(state, i) {
+				comb = append(comb, set[i])
+			}
+		}
+		combCopy := make([]int, len(comb))
+		copy(combCopy, comb) // needed?
+		powerSet = append(powerSet, combCopy)
+	}
+	return powerSet
+}
 
 // 9. Given a string that represents a base X number, convert it to an equivalent string in
 // base Y, 2 ≤ X, Y ≤ 36. For example: “FF” in base X = 16 (hexadecimal) is “255” in
