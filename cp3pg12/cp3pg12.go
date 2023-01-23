@@ -1,9 +1,14 @@
 package cp3pg12
 
 import (
+	"bufio"
 	"fmt"
 	"math"
+	"os"
+	"regexp"
 	"sort"
+	"strconv"
+	"strings"
 	"sync"
 	"time"
 
@@ -338,13 +343,68 @@ func intsToCombinations(set, ints []int) [][]int {
 // base Y, 2 ≤ X, Y ≤ 36. For example: “FF” in base X = 16 (hexadecimal) is “255” in
 // base Y1 = 10 (decimal) and “11111111” in base Y2 = 2 (binary). See Section 5.3.2.
 
+func BaseChange() {
+	fmt.Print("What is the base of your number? ")
+	var x int
+	_, err := fmt.Scanf("%d", &x)
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Printf("What is your number in base %d? ", x)
+	var sx string
+	_, err = fmt.Scanf("%s", &sx)
+	if err != nil {
+		panic(err)
+	}
+
+	i, err := strconv.ParseInt(sx, x, 64)
+	if err != nil {
+		panic(fmt.Errorf("unable to parse %s as base %d number", sx, x))
+	}
+
+	fmt.Printf("What is the base you desire to convert %s to? ", sx)
+	var y int
+	_, err = fmt.Scanf("%d", &y)
+	if err != nil {
+		panic(err)
+	}
+
+	sy := strconv.FormatInt(i, y)
+	fmt.Printf("In base %d, your number is %s\n", y, sy)
+}
+
 // 10. Let’s define a ‘special word’ as a lowercase alphabet followed by two consecutive digits.
 // Given a string, replace all ‘special words’ of length 3 with 3 stars “***”, e.g.
 // S = “line: a70 and z72 will be replaced, aa24 and a872 will not”
 // should be transformed into:
 // S = “line: *** and *** will be replaced, aa24 and a872 will not”.
 
-// 11. Given a valid mathematical expression involving ‘+’, ‘-’, ‘*’, ‘/’, ‘(’, and ‘)’ in a single
-// line, evaluate that expression. (e.g. a rather complicated but valid expression 3 + (8 -
-// 7.5) * 10 / 5 - (2 + 5 * 7) should produce -33.0 when evaluated with standard
-// operator precedence.)
+func SpecialWords() {
+	fmt.Println("Give me a string, I will change [a-Z][0-9][0-9] words to ***!")
+	scanner := bufio.NewScanner(os.Stdin)
+
+	re := regexp.MustCompile(`^[A-Za-z][0-9][0-9]$`)
+	var redacted string
+
+	for scanner.Scan() {
+		words := strings.Split(scanner.Text(), " ")
+		for i := 0; i < len(words); i++ {
+			if re.MatchString(words[i]) {
+				redacted += "***"
+			} else {
+				redacted += words[i]
+			}
+			if i+1 < len(words) {
+				redacted += " "
+			}
+		}
+		redacted += "\n"
+	}
+	if err := scanner.Err(); err != nil {
+		panic(err)
+	}
+
+	fmt.Println("Your redacted content:")
+	fmt.Print(redacted)
+}

@@ -23,5 +23,9 @@ func main() {
 
 	// cp3pg12.PermutationsOfAToJ()
 
-	cp3pg12.PowerSet0to20()
+	// cp3pg12.PowerSet0to20()
+
+	// cp3pg12.BaseChange()
+
+	cp3pg12.SpecialWords()
 }
