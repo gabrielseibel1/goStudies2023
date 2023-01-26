@@ -2,8 +2,6 @@ package main
 
 import (
 	"fmt"
-
-	"github.com/gabrielseibel1/goStudies2023/cp3pg12"
 )
 
 func main() {
@@ -27,5 +25,5 @@ func main() {
 
 	// cp3pg12.BaseChange()
 
-	cp3pg12.SpecialWords()
+	// cp3pg12.SpecialWords()
 }
