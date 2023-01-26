@@ -1,5 +1,7 @@
 package quadtree
 
+// https://leetcode.com/problems/construct-quad-tree/
+
 type Node struct {
 	Val         bool
 	IsLeaf      bool
