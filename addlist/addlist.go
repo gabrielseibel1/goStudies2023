@@ -4,22 +4,19 @@ package addlist
 
 import (
 	"math"
+
+	"github.com/gabrielseibel1/goStudies2023/list"
 )
 
-type ListNode struct {
-	Val  int
-	Next *ListNode
-}
-
-func AddTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
+func AddTwoNumbers(l1 *list.Node, l2 *list.Node) *list.Node {
 	lenL1 := countDigits(l1)
 	lenL2 := countDigits(l2)
 	diff := int(math.Abs(float64(lenL1 - lenL2)))
 	if diff > 0 {
-		zeroes := new(ListNode)
+		zeroes := new(list.Node)
 		n := zeroes
 		for i := 1; i < diff; i++ {
-			n.Next = new(ListNode)
+			n.Next = new(list.Node)
 			n = n.Next
 		}
 
@@ -30,7 +27,7 @@ func AddTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 		}
 	}
 
-	l := new(ListNode)
+	l := new(list.Node)
 	n := l
 	carry := 0
 	for l1 != nil {
@@ -55,20 +52,20 @@ func AddTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 
 		n.Val = v3
 		if l1 != nil {
-			n.Next = new(ListNode)
+			n.Next = new(list.Node)
 			n = n.Next
 		}
 	}
 
 	if carry > 0 {
-		n.Next = new(ListNode)
+		n.Next = new(list.Node)
 		n.Next.Val = carry
 	}
 
 	return l
 }
 
-func joinList(l1, l2 *ListNode) *ListNode {
+func joinList(l1, l2 *list.Node) *list.Node {
 	n := l1
 	for n.Next != nil {
 		n = n.Next
@@ -77,7 +74,7 @@ func joinList(l1, l2 *ListNode) *ListNode {
 	return l1
 }
 
-func countDigits(l *ListNode) int {
+func countDigits(l *list.Node) int {
 	digits := 0
 	for l != nil {
 		digits++

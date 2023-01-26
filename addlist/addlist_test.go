@@ -3,62 +3,51 @@ package addlist
 import (
 	"reflect"
 	"testing"
-)
 
-func makeList(s []int) *ListNode {
-	l := new(ListNode)
-	n := l
-	for i, v := range s {
-		n.Val = v
-		if i+1 < len(s) {
-			n.Next = new(ListNode)
-			n = n.Next
-		}
-	}
-	return l
-}
+	"github.com/gabrielseibel1/goStudies2023/list"
+)
 
 func TestAddTwoNumbers(t *testing.T) {
 	type args struct {
-		l1 *ListNode
-		l2 *ListNode
+		l1 *list.Node
+		l2 *list.Node
 	}
 	tests := []struct {
 		name string
 		args args
-		want *ListNode
+		want *list.Node
 	}{
 		{
 			name: "345+564=807",
 			args: args{
-				l1: makeList([]int{2, 4, 3}),
-				l2: makeList([]int{5, 6, 4}),
+				l1: list.New([]int{2, 4, 3}),
+				l2: list.New([]int{5, 6, 4}),
 			},
-			want: makeList([]int{7, 0, 8}),
+			want: list.New([]int{7, 0, 8}),
 		},
 		{
 			name: "0+0=0",
 			args: args{
-				l1: makeList([]int{0}),
-				l2: makeList([]int{0}),
+				l1: list.New([]int{0}),
+				l2: list.New([]int{0}),
 			},
-			want: makeList([]int{0}),
+			want: list.New([]int{0}),
 		},
 		{
 			name: "9999999+9999=10009998",
 			args: args{
-				l1: makeList([]int{9, 9, 9, 9, 9, 9, 9}),
-				l2: makeList([]int{9, 9, 9, 9}),
+				l1: list.New([]int{9, 9, 9, 9, 9, 9, 9}),
+				l2: list.New([]int{9, 9, 9, 9}),
 			},
-			want: makeList([]int{8, 9, 9, 9, 0, 0, 0, 1}),
+			want: list.New([]int{8, 9, 9, 9, 0, 0, 0, 1}),
 		},
 		{
 			name: "9999+9999999=10009998",
 			args: args{
-				l1: makeList([]int{9, 9, 9, 9}),
-				l2: makeList([]int{9, 9, 9, 9, 9, 9, 9}),
+				l1: list.New([]int{9, 9, 9, 9}),
+				l2: list.New([]int{9, 9, 9, 9, 9, 9, 9}),
 			},
-			want: makeList([]int{8, 9, 9, 9, 0, 0, 0, 1}),
+			want: list.New([]int{8, 9, 9, 9, 0, 0, 0, 1}),
 		},
 	}
 	for _, tt := range tests {
