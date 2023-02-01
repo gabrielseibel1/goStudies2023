@@ -2,44 +2,52 @@ package topological
 
 import "github.com/gabrielseibel1/goStudies2023/graph"
 
-func IsTopologicallySorted(graph graph.Graph, sorting []int) bool {
-	seen := make(map[int]struct{})
+func IsTopologicallySorted(g graph.Graph, sorting []int) bool {
+	seen := make([]bool, len(g))
 
 	for _, curr := range sorting {
-		seen[curr] = struct{}{}
-		for _, n := range graph[curr].Neighbors {
-			if _, s := seen[n]; s {
+		seen[curr] = true
+		for _, n := range g[curr].Neighbors {
+			if seen[n] {
 				return false
 			}
+		}
+	}
+
+	for i := range g {
+		if !seen[i] {
+			return false
 		}
 	}
 	return true
 }
 
-func TopSort(graph graph.Graph) []int {
-	seen := make(map[int]struct{})
+func TopSort(g graph.Graph) []int {
+	seen := make([]bool, len(g))
 
-	revOrder := make([]int, 0, len(graph))
-	for node := range graph {
-		revOrder = append(traverseStacking(graph, node, seen), revOrder...)
+	reverse := make([]int, 0, len(g))
+	for i := range g {
+		if !seen[i] {
+			dfs(g, i, seen, &reverse)
+		}
 	}
 
-	order := make([]int, 0, len(graph))
-	for _, v := range revOrder {
-		order = append(order, v)
+	order := make([]int, len(reverse))
+	for i, v := range reverse {
+		order[len(order)-1-i] = v
 	}
 	return order
 }
 
-func traverseStacking(graph graph.Graph, node int, seen map[int]struct{}) []int {
-	if _, s := seen[node]; s {
-		return make([]int, 0)
+func dfs(g graph.Graph, i int, seen []bool, reverse *[]int) {
+	seen[i] = true
+
+	for _, n := range g[i].Neighbors {
+		if seen[n] {
+			continue
+		}
+		dfs(g, n, seen, reverse)
 	}
 
-	seen[node] = struct{}{}
-	order := make([]int, 0)
-	for _, n := range graph[node].Neighbors {
-		order = append(traverseStacking(graph, n, seen), order...)
-	}
-	return append([]int{node}, order...)
+	*reverse = append(*reverse, i)
 }
