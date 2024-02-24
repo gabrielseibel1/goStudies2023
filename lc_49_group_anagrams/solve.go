@@ -2,7 +2,7 @@ package lc_49_group_anagrams
 
 import "sort"
 
-func groupAnagrams(strs []string) [][]string {
+func GroupAnagrams(strs []string) [][]string {
 	m := make(map[string][]int)
 	for i, s := range strs {
 		c := code(s)

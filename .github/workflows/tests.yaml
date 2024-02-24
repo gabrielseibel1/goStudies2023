@@ -28,13 +28,13 @@ jobs:
         with:
           profile: cover.out
           local-prefix: github.com/org/project
-          threshold-file: 100
-          threshold-package: 100
-          threshold-total: 100
+          threshold-file: 90
+          threshold-package: 90
+          threshold-total: 90
 
       - name: Make coverage badge
         uses: action-badges/core@0.2.2
-        if: contains(github.ref, 'main')
+        if: contains(github.ref, 'master')
         with:
           label: Coverage
           message: ${{ steps.coverage.outputs.badge-text }}

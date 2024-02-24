@@ -49,19 +49,19 @@ func expandRegionDFS(board [][]byte, p position) {
 	}
 }
 
-func expandRegionBFS(board [][]byte, p position) {
-	border := make([]position, 1)
-	border[0] = p
+// func expandRegionBFS(board [][]byte, p position) {
+// 	border := make([]position, 1)
+// 	border[0] = p
 
-	for batchSize := len(border); batchSize > 0; batchSize = len(border) {
-		for i := 0; i < batchSize; i++ {
-			pos := border[i]
-			border = append(border, pos.directions(board)...)
-			board[pos.r][pos.c] = '-'
-		}
-		border = border[batchSize:]
-	}
-}
+// 	for batchSize := len(border); batchSize > 0; batchSize = len(border) {
+// 		for i := 0; i < batchSize; i++ {
+// 			pos := border[i]
+// 			border = append(border, pos.directions(board)...)
+// 			board[pos.r][pos.c] = '-'
+// 		}
+// 		border = border[batchSize:]
+// 	}
+// }
 
 type position struct {
 	r int

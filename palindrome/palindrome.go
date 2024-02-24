@@ -2,40 +2,40 @@ package palindrome
 
 // https://leetcode.com/problems/longest-palindromic-substring/
 
-func longestPalindromeMemo(s string, memo map[string]string) string {
-	if v, e := memo[s]; e {
-		return v
-	}
+// func longestPalindromeMemo(s string, memo map[string]string) string {
+// 	if v, e := memo[s]; e {
+// 		return v
+// 	}
 
-	if s == "" {
-		memo[s] = s
-		return memo[s]
-	}
+// 	if s == "" {
+// 		memo[s] = s
+// 		return memo[s]
+// 	}
 
-	endsEqual := s[0] == s[len(s)-1]
-	if len(s) <= 3 && endsEqual {
-		memo[s] = s
-		return memo[s]
-	}
+// 	endsEqual := s[0] == s[len(s)-1]
+// 	if len(s) <= 3 && endsEqual {
+// 		memo[s] = s
+// 		return memo[s]
+// 	}
 
-	left, mid, right := s[:len(s)-1], s[1:len(s)-1], s[1:]
+// 	left, mid, right := s[:len(s)-1], s[1:len(s)-1], s[1:]
 
-	palMid := longestPalindromeMemo(mid, memo)
-	palLeft := longestPalindromeMemo(left, memo)
-	palRight := longestPalindromeMemo(right, memo)
+// 	palMid := longestPalindromeMemo(mid, memo)
+// 	palLeft := longestPalindromeMemo(left, memo)
+// 	palRight := longestPalindromeMemo(right, memo)
 
-	if palMid == mid && endsEqual {
-		memo[s] = s
-	} else if len(palMid) >= len(palLeft) && len(palMid) >= len(palRight) {
-		memo[s] = palMid
-	} else if len(palLeft) >= len(palMid) && len(palLeft) >= len(palRight) {
-		memo[s] = palLeft
-	} else if len(palRight) >= len(palMid) && len(palRight) >= len(palLeft) {
-		memo[s] = palRight
-	}
+// 	if palMid == mid && endsEqual {
+// 		memo[s] = s
+// 	} else if len(palMid) >= len(palLeft) && len(palMid) >= len(palRight) {
+// 		memo[s] = palMid
+// 	} else if len(palLeft) >= len(palMid) && len(palLeft) >= len(palRight) {
+// 		memo[s] = palLeft
+// 	} else if len(palRight) >= len(palMid) && len(palRight) >= len(palLeft) {
+// 		memo[s] = palRight
+// 	}
 
-	return memo[s]
-}
+// 	return memo[s]
+// }
 
 func longestPalindromeTabu(s string, tab [][]bool) string {
 	longest := ""

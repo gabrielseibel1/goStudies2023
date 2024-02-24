@@ -151,7 +151,7 @@ func FindReviewScore(review string, prohibitedWords []string) int32 {
  *  1. INTEGER_ARRAY frontend
  *  2. INTEGER_ARRAY backend
  */
-func getMaxPairs(frontend []int32, backend []int32) int32 {
+func GetMaxPairs(frontend []int32, backend []int32) int32 {
 	var p int32
 	sort.Slice(frontend, func(i, j int) bool {
 		return frontend[i] < frontend[j]
