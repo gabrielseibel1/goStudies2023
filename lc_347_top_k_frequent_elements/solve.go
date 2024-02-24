@@ -1,11 +1,12 @@
 package lc_347_top_k_frequent_elements
 
 import (
-	"github.com/gabrielseibel1/fungo/conv"
 	"sort"
+
+	"github.com/gabrielseibel1/fungo/conv"
 )
 
-func topKFrequent(nums []int, k int) []int {
+func TopKFrequent(nums []int, k int) []int {
 	c := make(map[int]int)
 	for _, e := range nums {
 		c[e] += 1
