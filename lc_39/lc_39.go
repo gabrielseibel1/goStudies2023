@@ -4,7 +4,7 @@ import (
 	"slices"
 )
 
-func combinationSum(candidates []int, target int) [][]int {
+func CombinationSum(candidates []int, target int) [][]int {
 	slices.Sort(candidates)
 	tip := 0
 	for _, n := range candidates {

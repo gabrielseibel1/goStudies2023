@@ -1,8 +1,9 @@
 package lc417
 
 import (
-	"reflect"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func Test_pacificAtlantic(t *testing.T) {
@@ -36,9 +37,7 @@ func Test_pacificAtlantic(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := pacificAtlantic(tt.args.heights); !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("pacificAtlantic() = %v, want %v", got, tt.want)
-			}
+			assert.ElementsMatch(t, tt.want, pacificAtlantic(tt.args.heights))
 		})
 	}
 }

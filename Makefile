@@ -12,4 +12,4 @@ check:
 
 .PHONY: test
 test:
-	(go test --count 1 --cover --coverprofile=./cover.out ./...) || (true)
+	go test --count 1 --cover --coverprofile=./cover.out ./...
