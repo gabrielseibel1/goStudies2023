@@ -255,7 +255,12 @@ func factorial(n int) int {
 	return n * factorial(n-1)
 }
 
-func addPermutations(letters []byte, permutations *[][]byte, permutation []byte, fwg *sync.WaitGroup) {
+func addPermutations(
+	letters []byte,
+	permutations *[][]byte,
+	permutation []byte,
+	fwg *sync.WaitGroup,
+) {
 	defer fwg.Done()
 
 	if len(letters) == 0 {
