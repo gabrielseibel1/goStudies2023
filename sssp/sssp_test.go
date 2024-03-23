@@ -27,5 +27,10 @@ func TestShortestPathTrapezoid(t *testing.T) {
 }
 
 func TestShortestPathLong(t *testing.T) {
-	testShortestPath(t, "TestShortestPathLong", graph.LongDG, []int{0, 2, 4, 1, math.MaxInt, math.MaxInt, 4, 0, math.MaxInt, 9, 1, 9, 5})
+	testShortestPath(
+		t,
+		"TestShortestPathLong",
+		graph.LongDG,
+		[]int{0, 2, 4, 1, math.MaxInt, math.MaxInt, 4, 0, math.MaxInt, 9, 1, 9, 5},
+	)
 }

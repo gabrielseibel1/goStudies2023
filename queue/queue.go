@@ -8,8 +8,10 @@ type Queue[T any] interface {
 	Dequeue() (*T, error)
 }
 
-type Item int
-type sliceQueue[T any] []*T
+type (
+	Item              int
+	sliceQueue[T any] []*T
+)
 
 func New[T any]() Queue[T] {
 	q := make(sliceQueue[T], 0)

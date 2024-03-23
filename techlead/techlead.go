@@ -131,4 +131,4 @@ func inGrid(l int, p position) bool {
 	return p.r >= 0 && p.r < l && p.c >= 0 && p.c < l
 }
 
-// poderia representar o path diferente ???	
+// poderia representar o path diferente ???

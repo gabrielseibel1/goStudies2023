@@ -14,7 +14,6 @@ func Test_largestRectangleArea(t *testing.T) {
 		args args
 		want int
 	}{
-
 		{
 			name: "example 0 (custom)",
 			args: args{

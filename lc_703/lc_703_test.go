@@ -6,7 +6,6 @@ import (
 )
 
 func TestKthLargest_Add(t *testing.T) {
-
 	t.Run("k=3, add [163], [2], [4], [5]", func(t *testing.T) {
 		cut := Constructor(3, []int{1, 6, 3})
 		a := cut.Add(2)
