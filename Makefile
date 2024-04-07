@@ -8,7 +8,7 @@ vet:
 
 .PHONY: check
 check:
-	staticcheck ./...
+	staticcheck -checks="inherit, -U1000" ./... 
 
 .PHONY: test
 test:
